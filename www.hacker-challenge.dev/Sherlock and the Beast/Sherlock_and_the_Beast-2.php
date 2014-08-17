@@ -1,3 +1,14 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<title>Untitled</title>
+	<meta name="generator" content="BBEdit 10.5">
+</head>
+<body>
+
+
 <?php
 
 //	Sherlock and the Beast
@@ -41,10 +52,13 @@ function GeneralCase($N) {
 
 //	General Case - We loop thru the possibilities of ($xxx * 3) + ($yyyyy * 5) = $N
 //	$xxx is the 3 digit number "555" and $yyyyy is the 5 digit number "33333"
-	
+
+		//	Outer Loop $xxx	
+
 		$xxx=round($N/3+1);		//	Limit of 3 chunked "555"s
+
 		for (;$xxx>=0;$xxx--)	{
-			// Loop y
+			// Inner Loop $yyyyy
 			$yyyyy=round($N/5+1);		//	Limit of 5 chunked "33333"s
 				for (;$yyyyy>=0;$yyyyy--){
 		//			echo "xxx = " . $xxx . ", yyyyy = " . $yyyyy . "\n";	//	For testing
@@ -60,6 +74,7 @@ function GeneralCase($N) {
 		
 		// both x and y loops searched, no answer found
 		echo "-1 Fail\n";
+		$SolutionFound = FALSE;  //No Longer Used
 		//	return fail;
 		}	//	End Else
 }
@@ -80,13 +95,24 @@ function AssembleString($N5, $N3){
 
 //  Main
 //	OpenInputFile;
+//	fread(Sherlock-Test-Data.txt, length);
+	$SherlockFile = fopen("../HackerRankChallenges/Sherlock-Test-Data.txt", "r") or die("Unable to open file!");
+	echo fread($myfile,filesize("../HackerRankChallenges/Sherlock-Test-Data.txt"));
+	fclose($SherlockFile);
+
 //	$T = GetFirstRecord; // The first record is the Number of records in the input file
-	$T = 999;							// Use ($iii<=$T) for Testing all configs
-for ($iii=1;$iii<=$T;$iii++){
-	echo "Line " . $iii . " = ";
-	$PotentialDecentNumber = $iii;				// Use $iii for Testing all configs
-	GeneralCase($iii);							// Use $iii for Testing all configs
-};
+//	$T = 999;							// Use ($iii<=$T) for Testing all configs
 
+//for ($iii=1;$iii<=$T;$iii++){
+//	echo "Line " . $iii . " = ";
+//	$PotentialDecentNumber = $iii;				// Use $iii for Testing all configs
+//	GeneralCase($iii);							// Use $iii for Testing all configs
+//};	//End For
 
+// End Main
+
+?>
+
+</body>
+</html>
 
