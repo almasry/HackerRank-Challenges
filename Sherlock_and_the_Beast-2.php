@@ -1,5 +1,15 @@
 <?php
 
+//	Sherlock and the Beast
+//	Submission by Peter S. Parker
+//	Date: 2014-08-17 
+//	Written 2014-08-17 & 18 in PHP
+//	http://github.com/petersparker
+//	License: Share and Share Alike, but under no circumstances may this be presented as your own work
+//	especialay to any Hacker Challenges
+
+
+
 // Declare Globals
 
 	$DecentNumber = "";
@@ -15,22 +25,23 @@
 
 	// Loop thru T numbers in file / array, starting with record (2 -> T+1)
 	
-	// In PHP arrays start with [0], so records [1] -> [T])
-
-	// Check for special cases
-	
-	
 
 function GeneralCase($N) {
 	global $DecentNumber, $Max5s, $Max3s, $SolutionFound;
-		If (($N % 3) == 0 ) {// Nailed it! (This will succeed 1 out of 3 times)
+
+//	Special Case: If MOD 3 = 0; THEN we Nailed it! (This will succeed 1 out of 3 times) 
+
+		If (($N % 3) == 0 ) {
 			$SolutionFound = TRUE;
 			$Max5s = $N/3;
 			$Max3s = 0;
 			$DecentNumber = AssembleString($Max5s, $Max3s);
 			return;
 		} else {
-		
+
+//	General Case - We loop thru the possibilities of ($xxx * 3) + ($yyyyy * 5) = $N
+//	$xxx is the 3 digit number "555" and $yyyyy is the 5 digit number "33333"
+	
 		$xxx=round($N/3+1);		//	Limit of 3 chunked "555"s
 		for (;$xxx>=0;$xxx--)	{
 			// Loop y
@@ -48,13 +59,13 @@ function GeneralCase($N) {
 			};	//	End $xxx Loop
 		
 		// both x and y loops searched, no answer found
-		$DecentNumber = "Fail -1 (General Case Loop Completion \n\n";
+		echo "-1 Fail\n";
 		//	return fail;
 		}	//	End Else
 }
 
 function AssembleString($N5, $N3){
-	global $DecentNumber;
+	global $N, $DecentNumber;
 	$Fives = "";
 	For ($iii=1; $iii<=$N5; $iii++)		{
 		$Fives = $Fives . "555" . " ";
@@ -64,15 +75,15 @@ function AssembleString($N5, $N3){
 		$Threes = $Threes . "33333" . " ";
 	};
 	$DecentNumber = $Fives . $Threes;
-	echo "Line = ";
-	echo "$DecentNumber <br>" . "\n";
+	echo "$DecentNumber \n";
 };
 
 //  Main
 //	OpenInputFile;
 //	$T = GetFirstRecord; // The first record is the Number of records in the input file
-	$T = 23;							// Use ($iii<=$T) for Testing all configs
+	$T = 999;							// Use ($iii<=$T) for Testing all configs
 for ($iii=1;$iii<=$T;$iii++){
+	echo "Line " . $iii . " = ";
 	$PotentialDecentNumber = $iii;				// Use $iii for Testing all configs
 	GeneralCase($iii);							// Use $iii for Testing all configs
 };
