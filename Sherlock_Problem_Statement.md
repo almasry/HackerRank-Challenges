@@ -42,11 +42,11 @@ Largest Decent number having N digits. If no such number exists, tell Sherlock t
 	-1
 	555
 	33333
-	55555533333
+	555 555 33333
 
 ###Explanation
 
 	For N=1, there is no such number. 
 	For N=3, 555 is only possible number.
 	For N=5, 33333 is only possible number.
-	For N=11, 55555533333 and all of permutations of digits are valid numbers, among 	them, the given number is the largest one.
+	For N=11, 555 555 33333 and all of permutations of digits are valid numbers, among 	them, the given number is the largest one.
