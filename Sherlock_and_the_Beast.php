@@ -1,7 +1,6 @@
 <?php
 
 
-
 // Declare Globals
 
 	$OutArray = "";
@@ -24,73 +23,68 @@
 	function SpecialCase($N) {	
 		global $OutArray, $Max5s, $Max3s, $Success;
 
+		switch ($N) {
 		// Too small to start
-	
-			If ($N < 3) {
+
+			Case ($N <= 2):
 				$Success = FALSE;
 				$Max5s = 0;
 				$Max3s = 0;
-				$OutArray = "";
-			}
+				$OutArray = "Special Case - Less than 3 digits - FAIL";
+				break;
 	
 		// Check for 3 - early success exit
-	
-			If ($N == 3) {
+
+			Case ($N == 3):
 				$Success = TRUE;
 				$Max5s = 0;
 				$Max3s = 1;
-				$OutArray = "333";
-			}
+				$OutArray = "Special Case Three Found - 333";
+				break;
 	
 		// Check for 4 - Fail
 	
-			If ($N = 3) {
+			Case ($N == 4):
 				$Success = FALSE;
 				$Max5s = 0;
 				$Max3s = 0;
-				$OutArray = "";
-			}
-
+				$OutArray = "Special Case = Equals 4 - FAIL";
+				break;
 	
 		// Check for Special Success MOD 15 = 0, If this is true, then we found a special case of all 5's.
 		
-				If ($N < 3) {
+			Case (($N % 15) == 0):
 				$Success = TRUE;
 				$Max5s = $N / 15;
 				$Max3s = 0;
-				$OutArray = "Call AssembleStr (" . $N . ")";
-			}
+				$OutArray = "Call AssembleString (" . $N . ")";
+				break;
 
+			default:
+				
+				$Success = NULL;
+				$OutArray = "Not a Special Case";
+				break;
+		}
 
 	}; // End Function SpecialCase
 
 function ShowAnswer($N) {
 
-		global $OutArray, $Max5s, $Max3s, $Success;
+	global $OutArray, $Max5s, $Max3s, $Success;
 
-	echo 'N = ' . $N . ', Success = ' . $Success . ', Fives = ' . $Max5s . ', Threes = ' . $Max3s . "\n" . $OutArray;
+	$SuccessAsAString = ($Success) ? 'Yes' : 'No';
+
+	echo 'N = ' . $N . ', Success = ' . $SuccessAsAString . ', Fives = ' . $Max5s . ', Threes = ' . $Max3s . "\n" . $OutArray . "\n\n";
 
 }
 
-SpecialCase(15);
-ShowAnswer(15);
+for ($iii=0;$iii<=15;$iii++){
 
-SpecialCase(4);
-ShowAnswer(4);
+	SpecialCase($iii);
+	ShowAnswer($iii);
 
-SpecialCase(3);
-ShowAnswer(3);
-
-SpecialCase(2);
-ShowAnswer(2);
-
-SpecialCase(1);
-ShowAnswer(1);
-
-SpecialCase(-10);
-ShowAnswer(-10);
-
-
+};
 
 
 ?>
