@@ -94,11 +94,16 @@ function AssembleString($N5, $N3){
 };
 
 //  Main
-//	OpenInputFile;
-//	fread(Sherlock-Test-Data.txt, length);
-	$SherlockFile = fopen("../HackerRankChallenges/Sherlock-Test-Data.txt", "r") or die("Unable to open file!");
-	echo fread($myfile,filesize("../HackerRankChallenges/Sherlock-Test-Data.txt"));
+
+function OpenLocalFile() {
+	$SherlockFile = fopen("../Sherlock and the Beast/Sherlock-Test-Data.txt", "r") or die("Unable to open file!");
+	echo fread($SherlockFile,filesize("../Sherlock and the Beast/Sherlock-Test-Data.txt"));
+
+//	while(!feof($SherlockFile)) {
+//		echo fgets($SherlockFile) . "<br>";
+//	}; //	End While
 	fclose($SherlockFile);
+};
 
 //	$T = GetFirstRecord; // The first record is the Number of records in the input file
 //	$T = 999;							// Use ($iii<=$T) for Testing all configs
