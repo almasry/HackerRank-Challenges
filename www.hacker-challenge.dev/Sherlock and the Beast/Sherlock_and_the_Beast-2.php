@@ -123,7 +123,7 @@ function AssembleString($N5, $N3){
 	};	//End While
 
 	echo "<br>";
-	for($x=0;$x<20;$x++) {
+	for($x=0;$x<21;$x++) {
 	  echo $FileArray[$x];
 	  echo ", ";
 	};
@@ -134,7 +134,7 @@ function AssembleString($N5, $N3){
 	echo "File Closed " . "<br>" . "\n";
 
 for ($iii=1;$iii<=$T;$iii++){
-//	echo "Input # " . $FileArray[$iii] . "<br>" . "\n";
+	echo "Input # " . $FileArray[$iii] . "<br>" . "\n";
 
 	GeneralCase($FileArray[$iii]);							// Use $iii for Testing all configs
 };	//End For
