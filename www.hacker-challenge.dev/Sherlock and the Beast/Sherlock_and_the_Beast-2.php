@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
-	<title>Untitled</title>
+	<title>Sherlock and the Beast</title>
 	<meta name="generator" content="BBEdit 10.5">
 </head>
 <body>
@@ -73,7 +73,7 @@ function GeneralCase($N) {
 			};	//	End $xxx Loop
 		
 		// both x and y loops searched, no answer found
-		echo "-1 Fail\n";
+		echo "-1 Fail <br> \n";
 		$SolutionFound = FALSE;  //No Longer Used
 		//	return fail;
 		}	//	End Else
@@ -82,37 +82,62 @@ function GeneralCase($N) {
 function AssembleString($N5, $N3){
 	global $N, $DecentNumber;
 	$Fives = "";
-	For ($iii=1; $iii<=$N5; $iii++)		{
+	for ($iii=1; $iii<=$N5; $iii++)		{
 		$Fives = $Fives . "555" . " ";
 	};
 	$Threes = "";
-	For ($iii=1; $iii<=$N3; $iii++)		{
+	for ($iii=1; $iii<=$N3; $iii++)		{
 		$Threes = $Threes . "33333" . " ";
 	};
 	$DecentNumber = $Fives . $Threes;
-	echo "$DecentNumber \n";
+	echo "$DecentNumber <br> \n";
 };
 
 //  Main
 
-function OpenLocalFile() {
-	$SherlockFile = fopen("../Sherlock and the Beast/Sherlock-Test-Data.txt", "r") or die("Unable to open file!");
-	echo fread($SherlockFile,filesize("../Sherlock and the Beast/Sherlock-Test-Data.txt"));
+	// Declare Some Variables
 
-//	while(!feof($SherlockFile)) {
-//		echo fgets($SherlockFile) . "<br>";
-//	}; //	End While
+	$FileArray = array(20,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20);
+	
+	for($x=0;$x<21;$x++) {
+	  echo $FileArray[$x];
+	  echo ", ";
+	};
+	echo "<br>";
+
+	//	OpenLocalFile();
+	$SherlockFile = fopen("../Sherlock and the Beast/Sherlock-Test-Data.txt", "r") or die ("Unable to open file!");
+
+	// Get first Record - The first record is the Number of records in the input file
+	$T = fgets($SherlockFile);
+	echo "T = $T" . "<br>" . "\n";
+	$FileArray[0] = $T; 
+
+	echo "Records to Read = " . $FileArray[0] . "<br>" . "\n";
+	
+	$ppp=1;
+	while(!feof($SherlockFile)) {
+		$FileArray[$ppp] = fgets($SherlockFile);
+		echo $ppp . " - " . $FileArray[$ppp] . "<br>";
+		$ppp+=1;
+	};	//End While
+
+	echo "<br>";
+	for($x=0;$x<20;$x++) {
+	  echo $FileArray[$x];
+	  echo ", ";
+	};
+	echo "<br>";
+
+	// Close File
 	fclose($SherlockFile);
-};
+	echo "File Closed " . "<br>" . "\n";
 
-//	$T = GetFirstRecord; // The first record is the Number of records in the input file
-//	$T = 999;							// Use ($iii<=$T) for Testing all configs
+for ($iii=1;$iii<=$T;$iii++){
+//	echo "Input # " . $FileArray[$iii] . "<br>" . "\n";
 
-//for ($iii=1;$iii<=$T;$iii++){
-//	echo "Line " . $iii . " = ";
-//	$PotentialDecentNumber = $iii;				// Use $iii for Testing all configs
-//	GeneralCase($iii);							// Use $iii for Testing all configs
-//};	//End For
+	GeneralCase($FileArray[$iii]);							// Use $iii for Testing all configs
+};	//End For
 
 // End Main
 
