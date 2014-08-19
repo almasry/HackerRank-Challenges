@@ -28,9 +28,10 @@ function GrowTree($Cycles) {
 		for ($i=1; $i=$Cycles; $i++) { 
 			If (($Cycles%2) == 1) {
 				$TreeHeight *= 2;
-			} else {
+			} else { //End Then
 				$TreeHeight += 1;
-			} // End For
+			} // End Else
+		} // End For
 		return $TreeHeight;
 }
 
@@ -62,7 +63,7 @@ function GrowTree($Cycles) {
 	fseek($OutPutFileHandle, 0);
 	
 	// Main processing Loop, this is where we loop thru the records and solve each one
-	for ($iii=1;$iii<=$RecordsInFile;$iii++){
+	for ($iii=1; $iii<=$TestCases; $iii++){
 		$TreeHeight = (GrowTree($InputArray[$iii])) . "\n";
 		fwrite($OutPutFileHandle, $TreeHeight);
 	};	//End For
