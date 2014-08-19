@@ -24,11 +24,11 @@
 
 function GrowTree($Cycles) {
 		$TreeHeight = 1;
-		If ($Cycles == 0) return $TreeHeight; //Tree did not grow
-		for ($i=1; $i=$Cycles; $i++) { 
-			If (($Cycles%2) == 1) {
+		If ($Cycles == 0) return $TreeHeight; 	//Tree did not grow
+		for ($i=1; $i<=$Cycles; $i++) { 
+			If (($i%2) == 1) { 			// Is an Odd Number
 				$TreeHeight *= 2;
-			} else { //End Then
+			} else { 							// Is an Even Number
 				$TreeHeight += 1;
 			} // End Else
 		} // End For
@@ -48,7 +48,10 @@ function GrowTree($Cycles) {
 	$InputArray[0] = $TestCases; 
 
 	// Get the rest of the records
-	$ppp=1;
+	// Redo this to Respect the given variable as well as EOF
+	
+	$ppp=1; // Use a counter for the Array indexing
+
 	while(!feof($InputFileHandle)) {
 		$InputArray[$ppp] = fgets($InputFileHandle);
 		$ppp+=1;
