@@ -42,10 +42,10 @@
 	// Set File Locations & Paths
 		if (TestDebug == "ON") {
 			$InputFilePath = 'LocalInputFile.txt';
-			$GLOBALS['$OutputFilePath'] = 'LocalOutputFile.txt';
+			$OutputFilePath = 'LocalOutputFile.txt';
 		} else {
-			$GLOBALS['$InputFilePath'] = 'php://stdin';
-			$GLOBALS['$OutputFilePath'] = 'php://stdout';
+			$InputFilePath = 'php://stdin';
+			$OutputFilePath = 'php://stdout';
 		};
 
 	if (TestDebug == "ON") {
@@ -64,26 +64,27 @@
 		
 		$OldValue = 3;
 
-	  	foreach ($ServiceLaneArray as $value) {
-	 		if  ($value < $OldValue) {
-				$OldValue = $value;
+	  	for ($iii=$EntryPoint ; $iii <= $eXitPoint ; $iii++) {
+	 		if  ($ServiceLaneArray[$iii] < $OldValue) {
+				$OldValue = $ServiceLaneArray[$iii];
 		 		};
 		};
+		return $Answer;
 	};
 
 //  Main
 
 	// Open a file for writing
-	$OutPutFileHandle = fopen($GLOBALS['$OutputFilePath'],"w") or die ("Unable to open Output file!");
+	$OutPutFileHandle = fopen($OutputFilePath,"w") or die ("Unable to open Output file!");
 
 	// Reset the Output File to the Beginning, else an extra Linefeed gets injected.
 	fseek($OutPutFileHandle, 0);
 	
 	// Open Input File
-	$InputFileHandle = fopen($InputFilePath,"r") or die ("Unable to open Input file!");
+	$InPutFileHandle = fopen($InputFilePath,"r") or die ("Unable to open Input file!");
 
 	// Get first Record - The first record is the Number of records in the file to process
-	$FirstLine = fgets($InputFileHandle);
+	$FirstLine = fgets($InPutFileHandle);
 	$TempLine = explode(" ", $FirstLine); 
 	$InputArray = $TempLine;
 
@@ -102,9 +103,11 @@
 
 	// Get 2nd record
 
-	$SecondLine = fgets($InputFileHandle);
-	$TempLine = explode(" ", $FirstLine); 
+	$SecondLine = fgets($InPutFileHandle);
+	$TempLine = explode(' ', $SecondLine);
 	$ServiceLaneArray = $TempLine;
+	$EntryPoint = $ServiceLaneArray[0];
+	$eXitPoint = $ServiceLaneArray[1];
 	
 	// Test and Debug
 	if (TestDebug == "ON") {
@@ -119,35 +122,26 @@
 	// Make this work both ways - EOF and # of Records as per step 1
 	// ## Add to this to Respect the given variable as well as EOF ## //
 
-	while(!feof($InputFileHandle)) {
-		$NextLine = fgets($InputFileHandle);
-		$InputArray[$ppp] = explode(" ", $NextLine); 
+	while(!feof($InPutFileHandle)) {
+		$NextLine = fgets($InPutFileHandle);
+		$ServiceLaneArray = explode(" ", $NextLine); 
 
-
-	if (TestDebug == "ON") {
-			echo "Entry = " . $Entry . "eXit = " . $eXit . $aNewLine;
-		};
-
-	// Call data handler HERE
-
-	fwrite($OutPutFileHandle);
-
-	if (TestDebug == "ON") {
-		echo " File Written\n" . aNewLine;
-	}		// Test and Debug
 		if (TestDebug == "ON") {
-		echo $NextLine . aNewLine;
-		print_r(explode(' ', $FirstLine, 0));
-		};
+				echo "Entry = " . $EntryPoint . ", eXit = " . $eXitPoint . aNewLine;
+			};
 
-		$ppp+=1;
+		// Call data handler HERE
+		$Answer = WalkThisLane($ServiceLaneArray, $EntryPoint, $eXitPoint);
+		fwrite($OutPutFileHandle, $Answer);
+
+		if (TestDebug == "ON") {
+			echo " File Written\n" . aNewLine;
+		}		// Test and Debug
 	};	//End While
 
 	// Close Files
-	fclose($InputFileHandle);
-
-
-
+	fclose($InPutFileHandle);
+	fclose($OutPutFileHandle);
 
 // End Main
 
