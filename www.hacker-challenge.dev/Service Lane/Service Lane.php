@@ -3,11 +3,9 @@
 <html lang="en">
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
-	<title>Untitled</title>
-	<meta name="generator" content="BBEdit 10.5">
-
-<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
-
+	<title>Service Lane PHP</title> 
+</head>
+<body>
 
 <?php
 
@@ -17,8 +15,15 @@
 // 	Rather than write statis arrays for each program, this program is designed to dynamically determine what needs to be buit on the fly, and build it.
 // 	It will use some constants 
 //  
+// Given to me:
 
+//	$LengthOfFreeway 		= Length of Freeway - [1..]
+//	$TestCases 				= Number of Test Cases - How many time we gonna do this?
 
+//	$ServiceLaneArray 		= Array [1..$N] Integers indicating the width of the freeway at each point.
+
+//	$EntryPoint				= Entry Point
+//	$eXitPoint				= Exit Point
 
 // Declare Globals
 
@@ -36,7 +41,7 @@
 	
 	// Set File Locations & Paths
 		if (TestDebug == "ON") {
-			$GLOBALS['$InputFilePath'] = 'LocalInputFile.txt';
+			$InputFilePath = 'LocalInputFile.txt';
 			$GLOBALS['$OutputFilePath'] = 'LocalOutputFile.txt';
 		} else {
 			$GLOBALS['$InputFilePath'] = 'php://stdin';
@@ -49,122 +54,100 @@
 		echo date('Y-m-d H:i:s') . aNewLine;
 	};
 
-//	$GLOBALS['variable'] = something;
+// Define the Array
 
-	// Set up the Array
-	$GLOBALS['$_2D_Array'] = array(array(1));
+	$ServiceLaneArray = array();
 
-//function WalkThisArray($ArrayToWalk) {
+// functions go here
 
-	// Set Horizontal Array Index
-	$iii = 0;
+	function WalkThisLane($ServiceLaneArray, $EntryPoint, $eXitPoint) {
+		
+		$OldValue = 3;
 
-	// Arrays may not be even in size, So use a while loop
-	// and test for the end of each line as you go
+	  	foreach ($ServiceLaneArray as $value) {
+	 		if  ($value < $OldValue) {
+				$OldValue = $value;
+		 		};
+		};
+	};
 
-	//While != End of String
-//	While (!EOString) {
-//		$jjj = 0;
-		// get c
-		// reset string counter
-//		$aaa = "";
-		// Inner Loop
-//			While ($StringToParse != EOString) {
-//				if (GetnextChar != $Delimiter) {
-//					$aaa = $aaa . $NextChar;
-//				};
-//			};
-		// put into array element [$iii]
-//		$ArrayLine[$iii] = $aaa;	
-		// increment array counter
-//		$iii++;
-//	};
-//	return;
-//};
+//  Main
 
-function GetInputFileDataAndBuild_2D_Array($A) {
-//	$GLOBALS['$InputArray'] = array('' => , );
+	// Open a file for writing
+	$OutPutFileHandle = fopen($GLOBALS['$OutputFilePath'],"w") or die ("Unable to open Output file!");
 
+	// Reset the Output File to the Beginning, else an extra Linefeed gets injected.
+	fseek($OutPutFileHandle, 0);
+	
 	// Open Input File
 	$InputFileHandle = fopen($InputFilePath,"r") or die ("Unable to open Input file!");
 
 	// Get first Record - The first record is the Number of records in the file to process
 	$FirstLine = fgets($InputFileHandle);
+	$TempLine = explode(" ", $FirstLine); 
+	$InputArray = $TempLine;
+
+	// Do any analysis needed of the first line here. Often times HackerRank
+	// wants you to take a value on the first line and use it for the number of records to process.
+
+	$LengthOfFreeway = $InputArray[0];
+	$TestCases = $InputArray[1];
 	
-	$InputArray[0] = explode(" ", $FirstLine); 
 
 	// Test and Debug
 	if (TestDebug == "ON") {
-		echo explode(" ", $FirstLine) . NextLine;
+		echo $FirstLine . aNewLine;
+		print_r(explode(' ', $FirstLine, 0));
 	};
-	// Do any analysis needed of the first line here. Often times HackerRank
-	// wants you to take a value on the first line and use it for the number of records to process.
-	// ## Add to this to Respect the given variable as well as EOF ## //
+
+	// Get 2nd record
+
+	$SecondLine = fgets($InputFileHandle);
+	$TempLine = explode(" ", $FirstLine); 
+	$ServiceLaneArray = $TempLine;
+	
+	// Test and Debug
+	if (TestDebug == "ON") {
+		echo $SecondLine . aNewLine;
+		print_r(explode(' ', $SecondLine, 0));
+	};
 
 	// Get the rest of the records	
 	// Use a counter for the Array indexing
 	$ppp=1; 
 
 	// Make this work both ways - EOF and # of Records as per step 1
+	// ## Add to this to Respect the given variable as well as EOF ## //
 
 	while(!feof($InputFileHandle)) {
 		$NextLine = fgets($InputFileHandle);
 		$InputArray[$ppp] = explode(" ", $NextLine); 
 
-		// Test and Debug
-		if (TestDebug == ON) {
-			echo  "Line = " . $ppp . explode(" ", $FirstLine). NextLine;
+
+	if (TestDebug == "ON") {
+			echo "Entry = " . $Entry . "eXit = " . $eXit . $aNewLine;
+		};
+
+	// Call data handler HERE
+
+	fwrite($OutPutFileHandle);
+
+	if (TestDebug == "ON") {
+		echo " File Written\n" . aNewLine;
+	}		// Test and Debug
+		if (TestDebug == "ON") {
+		echo $NextLine . aNewLine;
+		print_r(explode(' ', $FirstLine, 0));
 		};
 
 		$ppp+=1;
 	};	//End While
 
-	// Close File
+	// Close Files
 	fclose($InputFileHandle);
 
-	return;
-};
 
 
-
-function WorkHorse() {
-
-//	Main Loop - This is where the work gets done
-
-
-
-};
-
-function WriteOutputFile() {
-	// Open a file for writing
-	$OutPutFileHandle = fopen($GLOBALS['$OutputFilePath'],"w") or die ("Unable to open Output file!");
-	// Reset the Output File to the Beginning, else an extra Linefeed gets injected.
-
-	// Call data handler HERE
-
-	fwrite($OutPutFileHandle, $RemoveLater);
-
-	if (TestDebug == "ON") {
-		echo " File Written\n" . $RemoveLater . aNewLine;
-	}
-	fseek($OutPutFileHandle, 0);
-	// Close the file for writing
-	$OutPutFileHandle = fclose($OutPutFileHandle);
-	return;
-};
-
-//  Main
-
-	// Declare Array to hold up to 20 values for the problem
-
-	// Open Files, Get Data, Biuild Arrays
-//	GetInputFileDataAndBuild_2D_Array();
-
-	// Do the Work
-//	WorkHorse();	
-
-	// Write the Answers to the Output File
-	WriteOutputFile();
 
 // End Main
 
