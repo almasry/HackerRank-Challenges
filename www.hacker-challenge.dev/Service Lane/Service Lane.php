@@ -1,3 +1,14 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<title>Untitled</title>
+	<meta name="generator" content="BBEdit 10.5">
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+
 <?php
 
 //	Hackerank File Handlers
@@ -17,28 +28,33 @@
 	// ELSE FALSE 
 		// use HackerRank file locations
 		// Turn OFF debuggin messages
+
+	// Since newlines vary from place to place, and sometimes require \n, <br>, or both, set up a global constant 
+	// by default, constants are global
+		define("aNewLine", "<br> \n");
+		define("TestDebug", "ON", TRUE);
 	
-	$GLOBALS['TestDebug'] = TRUE;
-
 	// Set File Locations & Paths
-	if ($TestDebug = TRUE) {
-		$GLOBALS['$InputFilePath'] = '';
-		$GLOBALS['$OutputFilePath'] = '';
-	} else {
-		$GLOBALS['$InputFilePath'] = 'php://stdin';
-		$GLOBALS['$OutputFilePath'] = 'php://stdout';
+		if (TestDebug == "ON") {
+			$GLOBALS['$InputFilePath'] = 'LocalInputFile.txt';
+			$GLOBALS['$OutputFilePath'] = 'LocalOutputFile.txt';
+		} else {
+			$GLOBALS['$InputFilePath'] = 'php://stdin';
+			$GLOBALS['$OutputFilePath'] = 'php://stdout';
+		};
+
+	if (TestDebug == "ON") {
+		echo "Debug ON " . aNewLine;
+		date_default_timezone_set("America/Los_Angeles");
+		echo date('Y-m-d H:i:s') . aNewLine;
 	};
 
-	if ($TestDebug = TRUE) {
-		echo "Debug ON";
-	};
-
-	$GLOBALS['variable'] = something;
+//	$GLOBALS['variable'] = something;
 
 	// Set up the Array
-	$_2_Dimensional_Array = (0,0; 1,1);
+	$GLOBALS['$_2D_Array'] = array(array(1));
 
-function WalkThisArray($ArrayToWalk) {
+//function WalkThisArray($ArrayToWalk) {
 
 	// Set Horizontal Array Index
 	$iii = 0;
@@ -47,36 +63,40 @@ function WalkThisArray($ArrayToWalk) {
 	// and test for the end of each line as you go
 
 	//While != End of String
-	While () {
-		$jjj = 0;
+//	While (!EOString) {
+//		$jjj = 0;
 		// get c
 		// reset string counter
-		$aaa = "";
+//		$aaa = "";
 		// Inner Loop
-			While ($StringToParse != EOString) {
-				if (GetnextChar) != $Delimiter {
-					$aaa = $aaa . $NextChar;
-				};
-			};
+//			While ($StringToParse != EOString) {
+//				if (GetnextChar != $Delimiter) {
+//					$aaa = $aaa . $NextChar;
+//				};
+//			};
 		// put into array element [$iii]
-		$ArrayLine[$iii] = $aaa;	
+//		$ArrayLine[$iii] = $aaa;	
 		// increment array counter
-		$iii++;
-	};
-	return;
-};
+//		$iii++;
+//	};
+//	return;
+//};
 
-function GetInputFileAndBuild_2D_Array($A) {
-	$GLOBALS['variable'] = something;
+function GetInputFileDataAndBuild_2D_Array($A) {
+//	$GLOBALS['$InputArray'] = array('' => , );
 
 	// Open Input File
-	$InputFileHandle = fopen("php://stdin","r") or die ("Unable to open Input file!");
+	$InputFileHandle = fopen($InputFilePath,"r") or die ("Unable to open Input file!");
 
 	// Get first Record - The first record is the Number of records in the file to process
 	$FirstLine = fgets($InputFileHandle);
 	
 	$InputArray[0] = explode(" ", $FirstLine); 
 
+	// Test and Debug
+	if (TestDebug == "ON") {
+		echo explode(" ", $FirstLine) . NextLine;
+	};
 	// Do any analysis needed of the first line here. Often times HackerRank
 	// wants you to take a value on the first line and use it for the number of records to process.
 	// ## Add to this to Respect the given variable as well as EOF ## //
@@ -90,6 +110,12 @@ function GetInputFileAndBuild_2D_Array($A) {
 	while(!feof($InputFileHandle)) {
 		$NextLine = fgets($InputFileHandle);
 		$InputArray[$ppp] = explode(" ", $NextLine); 
+
+		// Test and Debug
+		if (TestDebug == ON) {
+			echo  "Line = " . $ppp . explode(" ", $FirstLine). NextLine;
+		};
+
 		$ppp+=1;
 	};	//End While
 
@@ -109,14 +135,18 @@ function WorkHorse() {
 
 };
 
-function WriteOutputFile($b) {
-	$GLOBALS['variable'] = something;
+function WriteOutputFile() {
 	// Open a file for writing
-	$OutPutFileHandle = fopen("php://stdout","w") or die ("Unable to open Output file!");
+	$OutPutFileHandle = fopen($GLOBALS['$OutputFilePath'],"w") or die ("Unable to open Output file!");
 	// Reset the Output File to the Beginning, else an extra Linefeed gets injected.
 
 	// Call data handler HERE
 
+	fwrite($OutPutFileHandle, $RemoveLater);
+
+	if (TestDebug == "ON") {
+		echo " File Written\n" . $RemoveLater . aNewLine;
+	}
 	fseek($OutPutFileHandle, 0);
 	// Close the file for writing
 	$OutPutFileHandle = fclose($OutPutFileHandle);
@@ -128,14 +158,19 @@ function WriteOutputFile($b) {
 	// Declare Array to hold up to 20 values for the problem
 
 	// Open Files, Get Data, Biuild Arrays
-	GetInputFileAndBuildArrays($A);
+//	GetInputFileDataAndBuild_2D_Array();
 
 	// Do the Work
-	WorkHorse();	
+//	WorkHorse();	
 
 	// Write the Answers to the Output File
-	WriteOutputFile($b);
+	WriteOutputFile();
 
 // End Main
 
 ?>
+
+<h2>Done!</h2>
+
+</body>
+</html>
