@@ -37,7 +37,7 @@
 	// Since newlines vary from place to place, and sometimes require \n, <br>, or both, set up a global constant 
 	// by default, constants are global
 		define("aNewLine", "<br> \n");
-		define("TestDebug", "ON", TRUE);
+		define("TestDebug", "Off", TRUE);
 		define("FilesAreLocal", "LOCAL", TRUE);
 	// Set File Locations & Paths
 		if (FilesAreLocal == "LOCAL") {
@@ -83,17 +83,18 @@
 	// Open a file for writing
 	$OutPutFileHandle = fopen($OutputFilePath,'w') or die ("Unable to open Output file!");
 
-	// Reset the Output File to the Beginning, else an extra Linefeed gets injected.
+	// Reset the Output File to the Beginning, else an extra Linefeed SOMETIMES gets injected.
 	fseek($OutPutFileHandle, 0);
 	
 	// Open Input File
 	$InPutFileHandle = fopen($InputFilePath,'r') or die ("Unable to open Input file!");
 
-	// Get first Record - The first record is the Number of records in the file to process
+	// Get first Record - The first record contains the Length of the Freeway and the 
+	// Number of Test Cases in the file to process
+	
 	$FirstLine = fgets($InPutFileHandle);
 	$TemplineArray = explode(" ", $FirstLine); 
 	$InputArray = $TemplineArray;
-
 
 	// Do any analysis needed of the first line here. Often times HackerRank
 	// wants you to take a value on the first line and use it for the number of records to process.
@@ -105,27 +106,48 @@
 	
 	// Test and Debug
 	if (TestDebug == "ON") {
-		echo $FirstLine . aNewLine;
+		echo "FirstLine = ";
+		foreach ($TemplineArray as $value) {
+			echo " '" . $value . "' ";
+		};
+		echo aNewLine . "LengthOfFreeway = '" . $LengthOfFreeway . "'". aNewLine;
+		echo "TestCases = '" . $TestCases . "'" . aNewLine;
+		
 	};
 
-	// Get 2nd record
+	// Get 2nd record - The Service Lane width Data String
 
 	$SecondLine = fgets($InPutFileHandle);
 	$TemplineArray = explode(' ', $SecondLine);
-	foreach ($TemplineArray as $value) {
-		$value = intval($value);
-	};
-	$ServiceLaneArray = $TemplineArray;
 	
 	// Test and Debug
 	if (TestDebug == "ON") {
-		echo $SecondLine . aNewLine;
+		echo "SecondLine = '" . $SecondLine . "'" . aNewLine;
 	};
 
+	foreach ($TemplineArray as $value) {
+		$value = intval($value);
+		// If Debug ON
+		if (TestDebug == "ON") {
+			echo "'" . $value . "'   ";
+		}
+	};
+	
+	// If Debug ON
+		if (TestDebug == "ON") {
+			echo aNewLine;
+		}
+	
+
+	$ServiceLaneArray = $TemplineArray;
+	
 	// Make this work both ways - EOF and # of Records as per step 1
 	// ## Add to this to Respect the given variable as well as EOF ## //
+for ($iii = 1 ; $iii <= $TestCases ; $iii++) { 
 
-	while(!feof($InPutFileHandle)) {
+//	while(!feof($InPutFileHandle)) {
+
+		$Answer = Null;
 	
 		$NextLine = fgets($InPutFileHandle);
 		$GetEntryExit = explode(" ", $NextLine); 
@@ -134,21 +156,23 @@
 		$eXitPoint = intval($GetEntryExit[1]);
 		
 		if (TestDebug == "ON") {
-				echo "Entry = '" . $EntryPoint . "', eXit = '" . $eXitPoint . "'" . aNewLine;
+				echo "Answer Reset = '" . $Answer . "', Entry = '" . $EntryPoint . "', eXit = '" . $eXitPoint . "'  ";
 			};
 
 		// Call data handler HERE
-		$Answer = WalkThisLane($ServiceLaneArray, $EntryPoint, $eXitPoint);
+		$Answer = intval(WalkThisLane($ServiceLaneArray, $EntryPoint, $eXitPoint));
 
 		if (TestDebug == "ON") {
 			echo "Answer = '" . $Answer . "'" . aNewLine;
 		};	// Test and Debug
 
 		// Add a linefeed to $Answer
-		$Answer .= "\n";
+//		$Answer .= "\n";
 
 		// Write the line
 		fwrite($OutPutFileHandle, $Answer);
+		fwrite($OutPutFileHandle, "\n");
+
 
 	};	//End While
 
