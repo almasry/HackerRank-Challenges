@@ -62,14 +62,14 @@
 
 	function WalkThisLane($ServiceLaneArray, $EntryPoint, $eXitPoint) {
 		
-		$OldValue = 3;
+		$HighValue = 3;
 
 	  	for ($iii=$EntryPoint ; $iii <= $eXitPoint ; $iii++) {
-	 		if  ($ServiceLaneArray[$iii] < $OldValue) {
-				$OldValue = $ServiceLaneArray[$iii];
+	 		if  ($ServiceLaneArray[$iii] < $HighValue) {
+				$HighValue = $ServiceLaneArray[$iii];
 		 		};
 		};
-		return $Answer;
+		return $HighValue;
 	};
 
 //  Main
@@ -97,8 +97,7 @@
 
 	// Test and Debug
 	if (TestDebug == "ON") {
-		echo $FirstLine . aNewLine;
-		print_r(explode(' ', $FirstLine, 0));
+		echo "" . $FirstLine . aNewLine;
 	};
 
 	// Get 2nd record
@@ -106,36 +105,32 @@
 	$SecondLine = fgets($InPutFileHandle);
 	$TempLine = explode(' ', $SecondLine);
 	$ServiceLaneArray = $TempLine;
-	$EntryPoint = $ServiceLaneArray[0];
-	$eXitPoint = $ServiceLaneArray[1];
 	
 	// Test and Debug
 	if (TestDebug == "ON") {
 		echo $SecondLine . aNewLine;
-		print_r(explode(' ', $SecondLine, 0));
 	};
-
-	// Get the rest of the records	
-	// Use a counter for the Array indexing
-	$ppp=1; 
 
 	// Make this work both ways - EOF and # of Records as per step 1
 	// ## Add to this to Respect the given variable as well as EOF ## //
 
 	while(!feof($InPutFileHandle)) {
+	
 		$NextLine = fgets($InPutFileHandle);
-		$ServiceLaneArray = explode(" ", $NextLine); 
+		$GetEntryExit = explode(" ", $NextLine); 
+		$EntryPoint = $GetEntryExit[0];
+		$eXitPoint = $GetEntryExit[1];
 
 		if (TestDebug == "ON") {
 				echo "Entry = " . $EntryPoint . ", eXit = " . $eXitPoint . aNewLine;
 			};
 
 		// Call data handler HERE
-		$Answer = WalkThisLane($ServiceLaneArray, $EntryPoint, $eXitPoint);
+		$Answer = WalkThisLane($ServiceLaneArray, $EntryPoint, $eXitPoint) . "\n";
 		fwrite($OutPutFileHandle, $Answer);
 
 		if (TestDebug == "ON") {
-			echo " File Written\n" . aNewLine;
+			echo "\n Answer = $Answer" . aNewLine;
 		}		// Test and Debug
 	};	//End While
 
