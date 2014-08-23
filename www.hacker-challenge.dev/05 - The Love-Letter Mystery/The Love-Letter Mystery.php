@@ -62,6 +62,12 @@
 
 //  Main
 
+	// Open a file for writing
+	$OutPutFileHandle = fopen($OutputFilePath,'w') or die ("Unable to open Output file!");
+
+	// Reset the Output File to the Beginning, else an extra Linefeed SOMETIMES gets injected.
+	fseek($OutPutFileHandle, 0);
+
 	// Open Input File
 	$InPutFileHandle = fopen($InputFilePath,'r') or die ("Unable to open Input file!");
 
@@ -75,7 +81,7 @@
 	};	// Test and Debug
 	
 
-	// Do any analysis needed of the first line here. Often times HackerRank
+	// Do any analysis needed of the first line here.
 	
 	
 	// Make this work both ways - EOF and # of Records as per step 1
@@ -87,53 +93,68 @@
 		if (TestDebug == "ON") {
 			echo "PalinDrome Before = '" . $PalinDrome . "'" . aNewLine;
 		};
+		
 		// Clean up the input - Strip whitespahe chars
 
 		$PalinDrome = preg_replace("/[^a-zA-Z]/", "", $PalinDrome);
-
+		
+		if (TestDebug == "ON") {
+			echo "PalinDrome After = '" . $PalinDrome . "'" . aNewLine;
+		};
+		
 		
 //		$PalinDromeSplit = str_split($PalinDrome);
 
-		$PalinDromeSplit = str_split($PalinDrome);
+		$PalinDromeArray = str_split($PalinDrome);
 
-		if ($iii<2) {
-			$PalinDromeArray = $PalinDromeSplit;
-			if (TestDebug == "ON") {
-				var_dump($PalinDromeArray) . aNewLine;
-			};
-
-		} else {
-			$PalinDromeArray = $PalinDromeSplit;
-			if (TestDebug == "ON") {
-				var_dump($PalinDromeArray) . aNewLine;
-			};
-		}
-	}; 	// End For	
-
-
-
+		
 		if (TestDebug == "ON") {
-			var_dump($PalinDromeArray);
+			var_dump($PalinDromeArray) . aNewLine;
 		};
 
-	$Answer = Null;
+		// Process the String
+		// My Non Standard solution - Since what they are asking for is the number of ops necessary to do
+		// this, and NOT for us to actually do the operation, my solution only finds the necessary number 
+		// of steps, and does not tke them.
 
-	// Call data handler HERE
-	$Answer = count($PalinDromeArray);
+		// To construct a palindrome their way, one must only use the 'reduce' ability. This makes it easy.
+		// By comparing the beginning letter to the end letter, and subtracting the numeric (ASCII) value, 
+		// you get difference between them, and the absolute value of theat number is the number of steps required.
 
-	if (TestDebug == "ON") {
-		echo "Answer = '" . $Answer . "'" . aNewLine;
-	};	// Test and Debug
+		// This is NOT a general Solution
 
-	// Open a file for writing
-	$OutPutFileHandle = fopen($OutputFilePath,'w') or die ("Unable to open Output file!");
+		// get the first element of the array
+		// get the last element of the array
+		// compare them numerically
+		// Take the absolute value
+		// Add the result to ops required
+		// Keep going until you hit the middle of the string
 
-	// Reset the Output File to the Beginning, else an extra Linefeed SOMETIMES gets injected.
-	fseek($OutPutFileHandle, 0);
 
-	// Write the line
-	fwrite($OutPutFileHandle, $Answer);
-	fwrite($OutPutFileHandle, "\n");
+		$Answer = 0;	// Reset the answer for each Input Record
+		$OpsRequired = 0; // Reset the $OpsRequired for each Letter Pair
+		$FarEnd = count($PalinDromeArray); // Since arrays start with 0, we must decrement the value of the last element of the array
+		$Halfway = intval($FarEnd / 2) - 1; // Stop in the middle where we meet
+		$FarEnd -= 1;
+
+		for ($jjj=0 ; $jjj <= $Halfway ; $jjj++) { 
+			$OpsRequired = abs(ord($PalinDromeArray[$jjj]) - ord($PalinDromeArray[$FarEnd-$jjj]));
+			if (TestDebug == "ON") {
+				echo "Ops this Pair = " . $OpsRequired . "   ";
+			};
+
+			$Answer += $OpsRequired;
+
+			if (TestDebug == "ON") {
+				echo "Answer = '" . $Answer . "'" . aNewLine;
+			};	// Test and Debug
+
+		};	// End For
+			// Write the line
+			fwrite($OutPutFileHandle, $Answer);
+			fwrite($OutPutFileHandle, "\n");
+
+	}; 	// End For	
 
 	// Close Files
 	fclose($InPutFileHandle);
