@@ -94,7 +94,7 @@
 			echo "PalinDrome Before = '" . $PalinDrome . "'" . aNewLine;
 		};
 		
-		// Clean up the input - Strip whitespahe chars
+		// Clean up the input - Strip whitespace chars
 
 		$PalinDrome = preg_replace("/[^a-zA-Z]/", "", $PalinDrome);
 		
