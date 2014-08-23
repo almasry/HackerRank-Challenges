@@ -56,7 +56,9 @@
 
 // Define the Array
 
-	$ElementArray = array();
+	$ElementArrayOne = array();
+	$ElementArrayTwo = array();
+	$ElementSplit = array();
 
 // functions go here
 
@@ -88,27 +90,48 @@
 		if (TestDebug == "ON") {
 			echo "Element Before = '" . $Element . "'" . aNewLine;
 		};
-		// Clean up the input - Strip leading and trailing chars
+		// Clean up the input - Strip whitespahe chars
 
 		$Element = preg_replace("/[^a-zA-Z]/", "", $Element);
 
-		$ElementArray[$iii-1] = $Element;
+		
+//		$ElementSplit = str_split($Element);
+//		sort($ElementSplit);
+//		$Element = implode("", $ElementSplit);
 
-		if (TestDebug == "ON") {
-			echo "Element After = '" . $Element . "'" . aNewLine;
+		// Sort and eliminate duplicates
+		$Element = count_chars($Element, 3);
 
-		};
+		$ElementSplit = str_split($Element);
 
+		if ($iii<2) {
+			$ElementArrayOne = $ElementSplit;
+			if (TestDebug == "ON") {
+				var_dump($ElementArrayOne) . aNewLine;
+			};
+
+		} else {
+			$ElementArrayTwo = $ElementSplit;
+			if (TestDebug == "ON") {
+				var_dump($ElementArrayTwo) . aNewLine;
+			};
+			$ElementArrayOne = array_intersect($ElementArrayOne, $ElementArrayTwo);
+			if (TestDebug == "ON") {
+				var_dump($ElementArrayOne) . aNewLine;
+			};
+		}
 	}; 	// End For	
 
+
+
 		if (TestDebug == "ON") {
-			var_dump($ElementArray);
+			var_dump($ElementArrayOne);
 		};
 
 	$Answer = Null;
 
 	// Call data handler HERE
-	$Answer = intval("222");
+	$Answer = count($ElementArrayOne);
 
 	if (TestDebug == "ON") {
 		echo "Answer = '" . $Answer . "'" . aNewLine;
