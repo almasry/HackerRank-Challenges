@@ -1,12 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-	"http://www.w3.org/TR/html4/loose.dtd">
-<html lang="en">
-<head>
-	<meta http-equiv="content-type" content="text/html; charset=utf-8">
-	<title>07 - Game of Thrones-01 PHP</title> 
-</head>
-<body>
-<h2>06 - Game of Thrones-01 PHP</h2>
+
 <?php
 
 //	07 - HGame of Thrones-01
@@ -30,9 +22,9 @@
 	// Since newlines vary from place to place, and sometimes require \n, <br>, or both, set up a global constant 
 	// by default, constants are global
 		define("aNewLine", "<br> \n");
-		define("TestDebug", "ON", TRUE);  // Default = "ON" 
-		define("FilesAreLocal", "LOCAL", TRUE); // Default = "LOCAL"
-		define("ShowOutput", "YES", TRUE); // Default = "YES"
+		define("TestDebug", "ON", TRUE); // Default is "ON", change to anything else for "OFF"
+		define("FilesAreLocal", "LOCAL", TRUE);  // Default is "LOCAL", change to anything else for "Remote"
+		define("ShowOutput", "YES", TRUE);// Default is "YES", change to anything else for "NO"
 	// Set File Locations & Paths
 		if (FilesAreLocal == "LOCAL") {
 			$InputFilePath = 'LocalInputFile.txt';
@@ -120,27 +112,30 @@
 		};
 
 		if ($OddNumbers > 1) {
-			$Answer = "NO";
-			echo "NO";	
+			$Answer = "NO";	
+			// file_put_contents("php:/stdout","NO");
+			file_put_contents($OutputFilePath, "NO");
+			// echo "NO";
 		} else {
 			$Answer = "YES";
-			echo "YES";	
+        	file_put_contents($OutputFilePath, "YES");
+		    // file_put_contents("php:/stdout","YES");
+		    // echo "YES";
 		};
 
 		if (TestDebug == "ON") {
-			echo "Is a PalinDrome = " . $Answer . aNewLine;
+			echo aNewLine . "Is a PalinDrome = " . $Answer . aNewLine;
 		};
 
-
 		// Open a file for writing
-		// $OutPutFileHandle = fopen($OutputFilePath,'w') or die ("Unable to open Output file!");
+		$OutPutFileHandle = fopen($OutputFilePath,'w') or die ("Unable to open Output file!");
 
 		// Reset the Output File to the Beginning, else an extra Linefeed SOMETIMES gets injected.
-		// fseek($OutPutFileHandle, 0);
+		fseek($OutPutFileHandle, 0);
 		// Write the line
 
-		// fwrite($OutPutFileHandle, $Answer);
-//		fwrite($OutPutFileHandle, "\n");
+		fwrite($OutPutFileHandle, $Answer);
+		fwrite($OutPutFileHandle, "\n");
 		if (ShowOutput == "YES") {
 			echo "fwrite = " . $Answer . aNewLine;
 		fclose($OutPutFileHandle);
@@ -150,14 +145,10 @@
 
 	// Close Files
 	fclose($InPutFileHandle);
-//	fclose($OutPutFileHandle);
+	// fclose($OutPutFileHandle);
 
 // End Main
 
 
 ?>
 
-<h2>Done!</h2>
-
-</body>
-</html>

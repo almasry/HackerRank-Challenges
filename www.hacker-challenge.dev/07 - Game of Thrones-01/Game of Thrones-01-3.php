@@ -1,15 +1,7 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-	"http://www.w3.org/TR/html4/loose.dtd">
-<html lang="en">
-<head>
-	<meta http-equiv="content-type" content="text/html; charset=utf-8">
-	<title>07 - Game of Thrones-01 PHP</title> 
-</head>
-<body>
-<h2>06 - Game of Thrones-01 PHP</h2>
+
 <?php
 
-//	07 - HGame of Thrones-01
+//	07 - Game of Thrones-01
 
 
 // Given to me:
@@ -127,37 +119,13 @@
 			echo "YES";	
 		};
 
-		if (TestDebug == "ON") {
-			echo "Is a PalinDrome = " . $Answer . aNewLine;
-		};
-
-
-		// Open a file for writing
-		// $OutPutFileHandle = fopen($OutputFilePath,'w') or die ("Unable to open Output file!");
-
-		// Reset the Output File to the Beginning, else an extra Linefeed SOMETIMES gets injected.
-		// fseek($OutPutFileHandle, 0);
-		// Write the line
-
-		// fwrite($OutPutFileHandle, $Answer);
-//		fwrite($OutPutFileHandle, "\n");
-		if (ShowOutput == "YES") {
-			echo "fwrite = " . $Answer . aNewLine;
-		fclose($OutPutFileHandle);
-		};
-
 	}; 	// End For $NumRecordsToCheck	
 
 	// Close Files
 	fclose($InPutFileHandle);
-//	fclose($OutPutFileHandle);
 
 // End Main
 
 
 ?>
 
-<h2>Done!</h2>
-
-</body>
-</html>
