@@ -42,7 +42,7 @@
 			// Normally we would open the file outside of the "for" loop, but the instructions call for 
 			// a single string of 3 chars (and does not specify a linefeed)
 			// So we are opening and closing the file each time.
-			// Opinion: THis is not ideal
+			// Opinion: This is not ideal
 
 			// Open the output file 
 			// $OutputFileHandle = fopen($OutputFilePath, 'w');
