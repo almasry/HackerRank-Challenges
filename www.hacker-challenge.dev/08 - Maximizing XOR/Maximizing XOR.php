@@ -79,16 +79,16 @@
 
 		// Clean up the input - Strip whitespace chars
 		// $InputString = preg_replace("/[^a-zA-Z]/", "", $InputString);
-
+		$InputStringArray = explode(" ", $InputString);
 
 
 		if (TestDebug == "ON") {
-			echo "InputString After = '" . $InputString . "'" . aNewLine;
+			echo "InputString After = '" . $InputStringArray . "'" . aNewLine;
 		};
 
 		// Break into Inputs
-		$LLL = $InputString[0];
-		$HHH = $InputString[1];
+		$LLL = intval($InputStringArray[0]);
+		$HHH = intval($InputStringArray[1]);
 
 		if (TestDebug == "ON") {
 			echo "Lower Limit = " . $LLL . ", Higher Limit = " . $HHH . aNewLine;
@@ -98,9 +98,9 @@
 		
 		$MaxXOR=0;
 
-		for ($iii=$LLL ; $iii <= $HHH ; $ii++) { 
+		for ($iii=$LLL ; $iii <= $HHH ; $iii++) { 
 			for ($jjj=iii; $jjj <= $HHH ; $jjj++) { 
-				$MaxXOR = max($MaxXOR, $LLL, $HHH);			
+				$MaxXOR = max($MaxXOR, ($iii xor $jjj)	
 			};
 		};
 
