@@ -14,9 +14,8 @@
 
 // Given to me:
 
-//	$T - (TestCases) = Number of Records
-
-//	$K - (PalinDrome) = Number of Cuts.
+//	$Lower - LowerEnd = Low Limit Value.
+//	$Higher - LowerEnd = High Limit Value.
 
 // Declare Globals
 
@@ -54,79 +53,60 @@
 
 // Define Variables
 
-	$RecordsToCheck = intval("0");		//	Integer
-	$PalinDrome = 0;
-
 // functions go here
-
 
 //  Main
 
-	// Open a file for writing
-//	$OutPutFileHandle = fopen($OutputFilePath,'w') or die ("Unable to open Output file!");
+// Open a file for writing
+	$OutPutFileHandle = fopen($OutputFilePath,'w') or die ("Unable to open Output file!");
 
-	// Reset the Output File to the Beginning, else an extra Linefeed SOMETIMES gets injected.
-//	fseek($OutPutFileHandle, 0);
+// Reset the Output File to the Beginning, else an extra Linefeed SOMETIMES gets injected.
+	//	fseek($OutPutFileHandle, 0);
 
-	// Open Input File
+// Open Input File
 	$InPutFileHandle = fopen($InputFilePath,'r') or die ("Unable to open Input file!");
 
-	//	Get first Record - The first record contains the Number of Test Cases
-	//	in the file to process
-	
-	$NumRecordsToCheck = intval(fgets($InPutFileHandle));
-
-	if (TestDebug == "ON") {
-		echo "NumRecordsToCheck = '" . $NumRecordsToCheck . "'" . aNewLine;
-	};	// Test and Debug
-	
-
-	// Do any analysis needed of the first line here.
-	
 	
 	// Make this work both ways - EOF and # of Records as per step 1
 	// ## Add to this to Respect the given variable as well as EOF ## //
-	for ($iii = 1 ; $iii <= $NumRecordsToCheck ; $iii++) { 
+	while (!feof($InputFileHandle)) {
 
-		$PalinDrome = fgets($InPutFileHandle);
+		$InputString = fgets($InPutFileHandle);
 
 		if (TestDebug == "ON") {
-			echo "PalinDrome Before = '" . $PalinDrome . "'" . aNewLine;
+			echo "InputString Before = '" . $InputString . "'" . aNewLine;
 		};
 
 		// Clean up the input - Strip whitespace chars
+		// $InputString = preg_replace("/[^a-zA-Z]/", "", $InputString);
 
-		$PalinDrome = preg_replace("/[^a-zA-Z]/", "", $PalinDrome);
+
 
 		if (TestDebug == "ON") {
-			echo "PalinDrome After = '" . $PalinDrome . "'" . aNewLine;
+			echo "InputString After = '" . $InputString . "'" . aNewLine;
 		};
 
-		// Sort & Count Chars in the String;
+		// Break into Inputs
+		$LLL = $InputString[0];
+		$HHH = $InputString[1];
 
-		$PalinDromeArray = count_chars($PalinDrome,1);
 		if (TestDebug == "ON") {
-			var_dump($PalinDromeArray);
+			echo "Lower Limit = " . $LLL . ", Higher Limit = " . $HHH . aNewLine;
 		};
 
-		// Evaluate the Array to find oout how many odd numbers are in it
+		// Evaluate the XOR possibilities to find oout how many odd numbers are in it
 		
-		$OddNumbers=0;
+		$MaxXOR=0;
 
-		foreach ($PalinDromeArray as $value) {
-			if (($value%2) == 1) {
-				$OddNumbers++;
+		for ($iii=$LLL ; $iii <= $HHH ; $ii++) { 
+			for ($jjj=iii; $jjj <= $HHH ; $jjj++) { 
+				$MaxXOR = max($MaxXOR, $LLL, $HHH);			
 			};
 		};
 
-		if ($OddNumbers > 1) {
-			$Answer = "NO";	
-		} else {
-			$Answer = "YES";	
-		};
 
 		if (TestDebug == "ON") {
-			echo "Is a PalinDrome = " . $Answer . aNewLine;
+			echo "MaxXOR = " . $MaxXOR . aNewLine;
 		};
 
 
@@ -141,14 +121,14 @@
 		fwrite($OutPutFileHandle, "\n");
 		if (ShowOutput == "YES") {
 			echo "fwrite = " . $Answer . aNewLine;
-		fclose($OutPutFileHandle);
+//		fclose($OutPutFileHandle);
 		};
 
-	}; 	// End For $NumRecordsToCheck	
+	}; 	// End While !feof($InputFileHandle)	
 
 	// Close Files
 	fclose($InPutFileHandle);
-//	fclose($OutPutFileHandle);
+	fclose($OutPutFileHandle);
 
 // End Main
 
