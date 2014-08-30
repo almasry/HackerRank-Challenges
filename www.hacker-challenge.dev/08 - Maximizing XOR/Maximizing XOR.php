@@ -93,49 +93,48 @@
 // Open Input File
 	$InPutFileHandle = fopen(InputFilePath,'r') or die ("Unable to open Input file!");
 	
-	// Make this work both ways - EOF and # of Records as per step 1
-	// ## Add to this to Respect the given variable as well as EOF ## //
+// Make this work both ways - EOF and # of Records as per step 1
+// ## Add to this to Respect the given variable as well as EOF ## //
 
-		$LowBoundary = intval(fgets($InPutFileHandle));
-		$HighBoundary = intval(fgets($InPutFileHandle));
-		
-		if (TestDebug == "ON") {
-			echo "Lower Limit = " . $LowBoundary . ", Higher Limit = " . $HighBoundary . aNewLine;
-		};
+	$LowBoundary = intval(fgets($InPutFileHandle));
+	$HighBoundary = intval(fgets($InPutFileHandle));
+	
+	if (TestDebug == "ON") {
+		echo "Lower Limit = " . $LowBoundary . ", Higher Limit = " . $HighBoundary . aNewLine;
+	};
 
-		// Evaluate the XOR possibilities to find out how many odd numbers are in it
-		
-		// The lowest possible value of an XOR'd number is Zero, Set the Default below Zero 
-		// to be able to see if it worked.
-		
-		$MaxXOR=-1;
-		
-		if (TestDebug == "ON") {
-			echo "MaxXOR = " . $MaxXOR . aNewLine;
-		};
+	// Evaluate the XOR possibilities to find out how many odd numbers are in it
+	
+	// The lowest possible value of an XOR'd number is Zero, Set the Default below Zero 
+	// to be able to see if it worked.
+	
+	$MaxXOR=-1;
+	
+	if (TestDebug == "ON") {
+		echo "MaxXOR = " . $MaxXOR . aNewLine;
+	};
 
-		for ($iii=$LowBoundary ; $iii <= $HighBoundary ; $iii++) { 
-			for ($jjj=$iii; $jjj <= $HighBoundary ; $jjj++) { 
-				$Temp = $iii ^ $jjj;
-				$MaxXOR = max($MaxXOR, $Temp);
-				if (TestDebug == "ON") {
-					echo '$iii = ' . $iii . ', $jjj = ' . $jjj . ", MaxXOR = " . $MaxXOR . aNewLine;
-				};
-
+	for ($iii=$LowBoundary ; $iii <= $HighBoundary ; $iii++) { 
+		for ($jjj=$iii; $jjj <= $HighBoundary ; $jjj++) { 
+			$Temp = $iii ^ $jjj;
+			$MaxXOR = max($MaxXOR, $Temp);
+			if (TestDebug == "ON") {
+				echo '$iii = ' . $iii . ', $jjj = ' . $jjj . ", MaxXOR = " . $MaxXOR . aNewLine;
 			};
 		};
+	};
 
-		$Answer = $MaxXOR;
+	$Answer = $MaxXOR;
 
-		fwrite($OutPutFileHandle, $Answer);
-		fwrite($OutPutFileHandle, "\n");
-		if (ShowOutput == "YES") {
-			echo "fwrite = " . $Answer . aNewLine;
-		};
+	fwrite($OutPutFileHandle, $Answer);
+	fwrite($OutPutFileHandle, "\n");
+	if (ShowOutput == "YES") {
+		echo "fwrite = " . $Answer . aNewLine;
+	};
 
-	// Close Files
-		fclose($InPutFileHandle);
-		fclose($OutPutFileHandle);
+// Close Files
+	fclose($InPutFileHandle);
+	fclose($OutPutFileHandle);
 
 // End Main
 
