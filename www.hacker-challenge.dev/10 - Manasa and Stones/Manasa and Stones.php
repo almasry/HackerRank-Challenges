@@ -129,19 +129,24 @@
 
 			$n_NumStones = intval(fgets($InPutFileHandle));
 			EchoBug("n_NumStones", $n_NumStones, 0);
+
 			$a_Diff = intval(fgets($InPutFileHandle));
 			EchoBug("a_Diff", $a_Diff, 0);
+			
 			$b_Diff = intval(fgets($InPutFileHandle));
 			EchoBug("b_Diff", $b_Diff, 1);
 
-		// Do the Maths
-
+		// Do the Stepping steps
+			$FirstStone = 0;
+			for ($jjj=0; $jjj <= $n_NumStones; $jjj++) { 
+				
+			}
 
 	}; 	// End For $NumOperations
 
 	//	Write Final Answer
 
-		$FinalAnswer = "0, 0, 0";
+		$FinalAnswer = "I'm Sorry, Dave, but I'm afraid I can't do that";
 		if (ShowOutput == "YES") echo "<strong><em>";
 		EchoAnswer("fwrite ", $FinalAnswer, 1);
 		if (ShowOutput == "YES") echo "</strong></em>";
