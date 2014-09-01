@@ -110,7 +110,7 @@
 
 	// Open Files
 	$InPutFileHandle = fopen(InputFilePath,'r') or die ("Unable to open Input file!");
-	$OutPutFileHandle = fopen(OutputFilePath,'r') or die ("Unable to open Output file!");
+	$OutPutFileHandle = fopen(OutputFilePath,'w') or die ("Unable to open Output file!");
 	// Reset the Output File to the Beginning, else an extra Linefeed gets injected.
 		fseek($OutPutFileHandle, 0);
 

@@ -58,24 +58,27 @@
 
 // functions go here
 
-	function EchoBug($A="", $B, $C=1) {
+	function EchoBug($A="", $B, $C) {
 		// $A is the name of the variable
 		// $B is the variable or array variable
-		// $C is a boolean: 0 (Zero) for FALSE, 1 for (True) - TRUE to write a newline
+		// $C is an integer for how many newlines to add for formatting / prettying up
 
 		if (TestDebug == "ON") {
 			
 			if (is_array($B) == TRUE) {
 				echo "$A = '" . aNewLine;
 				var_dump($B);
-				echo aNewLine;
+				echo "'" . aNewLine;
 			} else {
-				echo "$A = '" . $B . "' ";
+				echo "$A = '" . $B . "'";
+				echo ($C == 1 ? aNewLine : ", ");
 			};
 
-			echo ($C=1 ? aNewLine : ", ");
-			if ($C="1") {
-					echo aNewLine;
+
+			if ($C >=1) {
+					for ($iii=1 ; $iii <= $C ; $iii++ ) { 
+					 	echo aNewLine;
+					 } 
 				} else {
 					echo ", ";
 				};
@@ -97,7 +100,7 @@
 			};
 
 			echo ($C=1 ? aNewLine : ", ");
-			if ($C="1") {
+			if ($C==1) {
 					echo aNewLine;
 				} else {
 					echo ", ";
@@ -109,7 +112,7 @@
 
 	// Open Files
 	$InPutFileHandle = fopen(InputFilePath,'r') or die ("Unable to open Input file!");
-	$OutPutFileHandle = fopen(OutputFilePath,'r') or die ("Unable to open Output file!");
+	$OutPutFileHandle = fopen(OutputFilePath,'w') or die ("Unable to open Output file!");
 	// Reset the Output File to the Beginning, else an extra Linefeed gets injected.
 		fseek($OutPutFileHandle, 0);
 
@@ -125,7 +128,7 @@
 	// ## Add to this to Respect the given variable as well as EOF ## //
 	for ($iii = 1 ; $iii <= $Testcases ; $iii++) { 
 
-		//	Read three Reocrds
+		//	Read three Records
 
 			$n_NumStones = intval(fgets($InPutFileHandle));
 			EchoBug("n_NumStones", $n_NumStones, 0);
@@ -136,17 +139,32 @@
 			$b_Diff = intval(fgets($InPutFileHandle));
 			EchoBug("b_Diff", $b_Diff, 1);
 
-		// Do the Stepping steps
+		// Do the Stepping Stone Steps
 			$FirstStone = 0;
+			$StonesArray = array(25, 20, 456, 43782,324,564,25, 20, 456, 43782,324,564,1,234,8,7546,212, "Dummy Data");
+			
 			for ($jjj=0; $jjj <= $n_NumStones; $jjj++) { 
-				
-			}
+				$Step
+				for ($kkk=0; $kkk <=??? ; $kkk++) { 
 
-	}; 	// End For $NumOperations
+				};	//	end for $kkk
+				array_push($StonesArray, $kkk);
+			};	//	end for $jjj
+	}; 	// End For $TestCases
 
 	//	Write Final Answer
 
-		$FinalAnswer = "I'm Sorry, Dave, but I'm afraid I can't do that";
+		$StonesArray = array(25, 20, 456, 43782,324,564,25, 20, 456, 43782,324,564,1,234,8,7546,212);
+		EchoBug("Stones Array", $StonesArray, 1);
+
+		$StonesArray = array_unique($StonesArray);
+		EchoBug("Final Answer", $StonesArray, 1);
+		
+		sort($StonesArray);
+		EchoBug("Sorted Answer", $StonesArray, 1);
+		
+		$FinalAnswer = implode(" ", $StonesArray);
+
 		if (ShowOutput == "YES") echo "<strong><em>";
 		EchoAnswer("fwrite ", $FinalAnswer, 1);
 		if (ShowOutput == "YES") echo "</strong></em>";

@@ -64,7 +64,7 @@
 	};	//	End Function OpenTheOutPutFile
 
 	function OpenTheInPutFile() {
-		$InPutFileHandle = fopen(InputFilePath,'w') or die ("Unable to open Input file!");
+		$InPutFileHandle = fopen(InputFilePath,'r') or die ("Unable to open Input file!");
 		return $InPutFileHandle;
 	};	// End Function OpenTheInPutFile
 
