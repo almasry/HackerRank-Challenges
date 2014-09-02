@@ -11,16 +11,17 @@
 
 //	12 - Find Digits
 
-// Given to me:
+// 	Given to me:
 
-//	$t_Testcases - Number of Testcases
-//	$n_NumStones - Total Number of Stones
-//	$a-Diff - one integer of possible difference
-//	$b_Diff - the other integer of possible difference
+	//	$t_Testcases - Number of Testcases
+	//	$
+	//
  
 
 // Declare Globals
 
+
+//	Set up Files and variable debug
 	// When TestDebug is TRUE THEN 
 		// DO testing with local files, 
 		// Turn ON debugging messages
@@ -84,7 +85,7 @@
 				};
 		};
 	};
-	function EchoAnswer($A="", $B, $C=1) {
+	function EchoAnswer($A, $B, $C) {
 		// $A is the name of the variable
 		// $B is the variable or array variable
 		// $C is a boolean: 0 (Zero) for FALSE, 1 for (True) - TRUE to write a newline
@@ -124,11 +125,11 @@
 	
 	// Do any analysis needed of the first line here.
 	
-	// Make this work both ways - EOF and # of Records as per step 1
-	// ## Add to this to Respect the given variable as well as EOF ## //
+	// walk thru the test cases one by one
 	for ($iii = 1 ; $iii <= $Testcases ; $iii++) { 
 
 		// Initialize Variables
+		// $FinalAnswer needs to be reset each time thru the loop
 			$FinalAnswer = 0;
 
 		//	Read a Record
@@ -149,6 +150,7 @@
 			EchoBug("ARRAY d_DigitsArray", $d_DigitsArray, 1);
 			
 		// Do the Maths
+		// For Each item in the array, check to see if it divides evenly (mod == 0) into the original number.
 			$ArrayLength = sizeof($d_DigitsArray);
 			foreach ($d_DigitsArray as $value) {
 				if ($value != 0) {
