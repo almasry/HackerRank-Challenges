@@ -1,6 +1,8 @@
 
 <?php
 
+xdebug_break();
+
 //	Sherlock and the Beast
 //	Submission by Peter S. Parker
 //	Date: 2014-08-18 

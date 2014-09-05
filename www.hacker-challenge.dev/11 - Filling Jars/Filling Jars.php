@@ -33,7 +33,7 @@
 	// by default, constants are global
 	//	Turn these OFF when running on on Hackerrank
 		define("aNewLine", "<br> \n");
-		define("TestDebug", "off", TRUE);	// "ON" for TestDebug
+		define("TestDebug", "ON", TRUE);	// "ON" for TestDebug
 		define("FilesAreLocal", "LOCAL", TRUE);	// "LOCAL" for Local Files
 		define("ShowOutput", "YES", TRUE);	// "YES" Just Show Answers
 	// Set File Locations & Paths as constants / globals

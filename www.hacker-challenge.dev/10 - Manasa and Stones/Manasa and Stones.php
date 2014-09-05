@@ -110,6 +110,8 @@
 
 //  Main
 
+	xdebug_break();
+
 	// Open Files
 	$InPutFileHandle = fopen(InputFilePath,'r') or die ("Unable to open Input file!");
 	$OutPutFileHandle = fopen(OutputFilePath,'w') or die ("Unable to open Output file!");
@@ -141,15 +143,17 @@
 
 		// Do the Stepping Stone Steps
 			$FirstStone = 0;
+			$Maxkkk = 4; // this is arbitrary
 			$StonesArray = array(25, 20, 456, 43782,324,564,25, 20, 456, 43782,324,564,1,234,8,7546,212, "Dummy Data");
 			
-			for ($jjj=0; $jjj <= $n_NumStones; $jjj++) { 
-				$Step
-				for ($kkk=0; $kkk <=??? ; $kkk++) { 
 
-				};	//	end for $kkk
-				array_push($StonesArray, $kkk);
-			};	//	end for $jjj
+//			for ($jjj=0; $jjj <= $n_NumStones; $jjj++) { 
+				// 
+//				for ($kkk=0; $kkk=$Maxkkk ; $kkk++) { 
+					//
+//				};	//	end for $kkk
+			//	array_push($StonesArray, $kkk);
+//			};	//	end for $jjj
 	}; 	// End For $TestCases
 
 	//	Write Final Answer
