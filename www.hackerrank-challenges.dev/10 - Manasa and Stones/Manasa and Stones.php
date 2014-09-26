@@ -84,29 +84,6 @@
 				};
 		};
 	};
-	function EchoAnswer($A="", $B, $C=1) {
-		// $A is the name of the variable
-		// $B is the variable or array variable
-		// $C is a boolean: 0 (Zero) for FALSE, 1 for (True) - TRUE to write a newline
-
-		if (ShowOutput == "ON") {
-			
-			if (is_array($B) == TRUE) {
-				echo "$A = '" . aNewLine;
-				var_dump($B);
-				echo aNewLine;
-			} else {
-				echo "$A = '" . $B . "' ";
-			};
-
-			echo ($C=1 ? aNewLine : ", ");
-			if ($C==1) {
-					echo aNewLine;
-				} else {
-					echo ", ";
-				};
-		};
-	};
 
 //  Main
 
