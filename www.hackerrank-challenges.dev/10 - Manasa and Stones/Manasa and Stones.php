@@ -62,7 +62,7 @@
 		// $A is the name of the variable
 		// $B is the variable or array variable
 		// $C is an integer for how many newlines to add for formatting / prettying up
-		// $D is an optional force on (Show Answer)
+		// $D is an optional force ooutput to occur (for Show Answer)
 
 		if (TestDebug == "ON") {
 			
